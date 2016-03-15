@@ -102,7 +102,7 @@ The `isResizable` property is used to set the resizable permission of a resizabl
 
 The permission of `x`, `y`, `xy` direction resizing.
 If omitted, `x`, `y`, `xy` direction resizing is enabled.
-If you want to permit only x direction resizing, set `{ x:true, y:false, xy:false }`. 
+If you want to permit only x direction resizing, set `{ x:true, y:false, xy:false }`.
 
 #### `onClick`: PropTypes.func
 
@@ -133,7 +133,7 @@ Calls back with (`direction: string`, `styleSize: object`, `boundingClientRect: 
   - this argument is {style.width, style.height} resizable component(`div` element).
 - boundingClientRect: `{ width`, height }`
   - this argument is `width` and `height` of `resizable.getBoundingClientRect()`.
-  
+
 For example, when `<Resizable width={100} height={200} style={{ padding: '20px'}} onResize={...} />` mounted and resize 'x', this callback is called with `('x', { width: 100, height: 200 }, { width: 140, height: 240 })`
 
 #### `onResizeStop`: PropTypes.func
@@ -145,7 +145,7 @@ Calls back with (`direction: string`, `styleSize: object`, `boundingClientRect: 
   - this argument is {style.width, style.height} resizable component(`div` element).
 - boundingClientRect: `{ width`, height }`
   - this argument is `width` and `height` of `resizable.getBoundingClientRect()`.
-  
+
 For example, when `<Resizable width={100} height={200} style={{ padding: '20px'}} onResize={...} />` mounted and resize 'x', this callback is called with `('x', { width: 100, height: 200 }, { width: 140, height: 240 })`
 
 ## Test
