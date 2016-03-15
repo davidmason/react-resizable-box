@@ -82,6 +82,20 @@ The `customClass` property is used to set the custom `className` of a resizable 
 
 The `customStyle` property is used to set the custom `classStyle` of a resizable component.
 
+#### `invert`: PropTypes.shape({ x: PropTypes.bool, y: PropTypes.bool })
+
+The `invert` property is used to reverse the direction of dragging that makes the box bigger.
+
+The default is `{ x: false, y: false }` to drag right to make the box wider and down to
+make the box taller, with handles on the right, bottom, and bottom-right corner.
+
+Setting `invert` to `true` for an axis will change the drag direction and move the
+handles to the opposite side.
+
+If you set `{ x: false, y: true }`, there will be a handle on the top to drag up,
+a handle on the top-right to drag up and right, and the normal handle on the right
+to drag right.
+
 #### `isResizable`: Proptypes.shape({ x: PropTypes.bool, y: PropTypes.bool, xy: PropTypes.bool })
 
 The `isResizable` property is used to set the resizable permission of a resizable component.

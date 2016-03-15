@@ -14,6 +14,7 @@ export default class Risizable extends Component {
     onTouchStart: PropTypes.func,
     onResize: PropTypes.func,
     customStyle: PropTypes.object,
+    invert: PropTypes.shape({ x: PropTypes.bool, y: PropTypes.bool }),
     isResizable: PropTypes.shape({
       x: PropTypes.bool,
       y: PropTypes.bool,
@@ -34,6 +35,7 @@ export default class Risizable extends Component {
     onResizeStop: () => null,
     isResizable: { x: true, y: true, xy: true },
     customStyle: {},
+    invert: {},
   }
 
   constructor(props) {
@@ -73,19 +75,19 @@ export default class Risizable extends Component {
 
   onMouseMove({ clientX, clientY }) {
     const { direction, original, isActive } = this.state;
-    const { minWidth, maxWidth, minHeight, maxHeight } = this.props;
+    const { invert, minWidth, maxWidth, minHeight, maxHeight } = this.props;
     let newWidth;
     let newHeight;
     if (!isActive) return;
     if (direction.indexOf('x') !== -1) {
-      newWidth = original.width + clientX - original.x;
+      newWidth = original.width + (invert.x ? original.x - clientX : clientX - original.x);
       const min = (minWidth < 0 || typeof minWidth === 'undefined') ? 0 : minWidth;
       const max = (maxWidth < 0 || typeof maxWidth === 'undefined') ? newWidth : maxWidth;
       newWidth = clamp(newWidth, min, max);
       this.setState({ width: newWidth });
     }
     if (direction.indexOf('y') !== -1) {
-      newHeight = original.height + clientY - original.y;
+      newHeight = original.height + (invert.y ? original.y - clientY : clientY - original.y);
       const min = (minHeight < 0 || typeof minHeight === 'undefined') ? 0 : minHeight;
       const max = (maxHeight < 0 || typeof maxHeight === 'undefined') ? newHeight : maxHeight;
       newHeight = clamp(newHeight, min, max);
@@ -152,7 +154,7 @@ export default class Risizable extends Component {
       width: this.state.width ? `${this.state.width}px` : '',
       height: this.state.height ? `${this.state.height}px` : '',
     };
-    const { isResizable, onClick, customStyle, customClass,
+    const { invert, isResizable, onClick, customStyle, customClass,
             onMouseDown, onDoubleClick, onTouchStart } = this.props;
     const onResizeStartX = this.onResizeStart.bind(this, 'x');
     const onResizeStartY = this.onResizeStart.bind(this, 'y');
@@ -170,21 +172,20 @@ export default class Risizable extends Component {
         {this.props.children}
         {
           isResizable.x !== false
-            ? <Resizer type={'x'} onResizeStart={onResizeStartX} />
+            ? <Resizer type={'x'} onResizeStart={onResizeStartX} invert={invert} />
             : null
         }
         {
           isResizable.y !== false
-            ? <Resizer type={'y'} onResizeStart={onResizeStartY} />
+            ? <Resizer type={'y'} onResizeStart={onResizeStartY} invert={invert} />
             : null
         }
         {
           isResizable.xy !== false
-            ? <Resizer type={'xy'} onResizeStart={onResizeStartXY} />
+            ? <Resizer type={'xy'} onResizeStart={onResizeStartXY} invert={invert} />
             : null
         }
       </div>
     );
   }
 }
-
